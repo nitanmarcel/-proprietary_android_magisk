@@ -1,0 +1,6 @@
+{
+  "version": "v1.0",
+  "versionCode": 10,
+  "zipUrl": "https://github.com/nitanmarcel/proprietary_android_magisk/releases/download/v1.0/proprietary_android_magisk.zip",
+  "changelog": "https://raw.githubusercontent.com/nitanmarcel/proprietary_android_magisk/master/changelog.json"
+}

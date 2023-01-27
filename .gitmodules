@@ -1,0 +1,6 @@
+[submodule "libhoudini-package"]
+	path = libhoudini-package
+	url = https://github.com/natsumerinchan/libhoudini-package
+[submodule "Droid-NDK-Extractor"]
+	path = Droid-NDK-Extractor
+	url = https://github.com/nitanmarcel/Droid-NDK-Extractor

@@ -1,0 +1,7 @@
+id=proprietary_android_magisk
+name=Proprietary Android Magisk Installer
+version=v1.0
+versionCode=10
+author=Marcel Alexandru Nitan
+description=Install proprietary libs in Android x86/x86_64 (Also works with Waydroid)
+updateJson=https://raw.githubusercontent.com/nitanmarcel/proprietary_android_magisk/master/update.json

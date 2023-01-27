@@ -1,0 +1,33 @@
+name: Build libhoudini
+
+on: [push]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        arch: [[x86_64, libhoudini], [x86_64, libndk], [x86, libndk]]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+      - name: Install dependency
+        run: |
+          sudo apt update && sudo apt install binwalk
+      - name: Build module
+        run: |
+          ./build.sh ${{ matrix.arch[0] }} ${{ matrix.arch[1] }}
+          zip -r proprietary_android_magisk*.zip .
+      - name: Create Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: ./proprietary_android_magisk*.zip
+          tag: v1.1
+          allowUpdates: true
+
+          
