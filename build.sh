@@ -2,7 +2,7 @@
 
 ARCH=$1
 TRANSLATION_TOOL=$2
-
+WORKDIR=$(pwd)
 
 64_prop() {
     cat << EOF > magisk-module/system.prop
@@ -15,7 +15,7 @@ ro.vendor.product.cpu.abilist64=x86_64,arm64-v8a
 ro.odm.product.cpu.abilist=x86_64,x86,arm64-v8a,armeabi-v7a,armeabi
 ro.odm.product.cpu.abilist32=x86,armeabi-v7a,armeabi
 ro.odm.product.cpu.abilist64=x86_64,arm64-v8a
-ro.dalvik.vm.native.bridge=libhoudini.so
+ro.dalvik.vm.native.bridge=$1
 ro.enable.native.bridge.exec=1
 ro.enable.native.bridge.exec64=1
 ro.dalvik.vm.isa.arm=x86
@@ -44,8 +44,6 @@ if [ "${ARCH}" == "x86" ]; then
         echo "libhoudini is not available on x86"
         exit 1;
     fi
-    rm -rf magisk-module/system 2> /dev/null
-    cp -r libhoudini-package/system magisk-module/
 fi
 
 if [ "${TRANSLATION_TOOL}" == "libndk" ]; then
@@ -56,6 +54,8 @@ if [ "${TRANSLATION_TOOL}" == "libndk" ]; then
 fi
 
 if [ "${TRANSLATION_TOOL}" == "libhoudini" ]; then
+    rm -rf magisk-module/system 2> /dev/null
+    cp -r libhoudini-package/system magisk-module/    
     64_prop "libhoudini.so"
 elif [ "${ARCH}" == "x86_64" ]; then
     if [ "${TRANSLATION_TOOL}" == "libndk" ]; then
@@ -65,4 +65,7 @@ elif [ "${ARCH}" == "x86" ]; then
     32_prop "libndk_translation.so"
 fi
 
-cd magisk-module && zip -r "../proprietary_android_magisk-${ARCH}_${TRANSLATION_TOOL}.zip" . && cd ..
+cd magisk-module
+echo $(pwd)
+zip -r "${WORKDIR}/proprietary_android_magisk-${ARCH}_${TRANSLATION_TOOL}.zip" .
+cd "${WORKDIR}"
