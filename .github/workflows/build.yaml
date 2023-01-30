@@ -2,9 +2,6 @@ name: Build libhoudini
 
 on: [push]
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     strategy:
@@ -29,5 +26,6 @@ jobs:
           artifacts: ./proprietary_android_magisk*.zip
           tag: v1.1
           allowUpdates: true
+          token: ${{ secrets.GH_TOKEN }}
 
           
